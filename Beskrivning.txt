@@ -1,0 +1,14 @@
+Miniprojekt
+Syfte: Uppdraget kommer från en skola som arbetar mycket med barn som har läs- och skrivsvårigheter och vill därför börja inrikta sig mot lärande med datorer och applikationer som hjälpmedel. De har givit följande önskemål angående applikationen:
+1.WordImage Test
+Presenterar en bild på skärmen där användaren får möjligheten att skriva in ett ord. Varje rätt ord ger ett poäng.
+2.Separator Test
+Presenterar en text där alla skiljetecken saknas, utbytta mot asterisker. Användaren skall skriva av texten med rätt skiljetecken istället för asteriskerna. Varje rätt skiljetecken ger ett poäng. Hur hanteras felstavning?
+3.Color Test
+Presenterar namnet på en färg. Användaren ges möjlighet att klicka på en ruta av färg från ett utbud at färgrutor. Varje rätt matchning ger ett poäng.
+4.Text Test
+Presenterar en mängd ord. Användaren skall använda dessa ord för att bygga en mening. Varje använt och rättstavat ord ger ett poäng.
+5.Session/Challenge
+Låter användaren välja att göra en utmaning på ett visst test eller en svit av tester.
+6.High Score
+Efter avklarad Session/Challenge får användaren skriva in ett smeknamn och de tio bästa resultaten i varje kategori av test sparas. Senast gjorda challenge är tie-breaker om två användare fått samma resultat.
