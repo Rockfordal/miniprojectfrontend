@@ -28,16 +28,25 @@
                 <span>
                     <section ng-show="wordImageTest.showPart===1" class="description">
                         <p ng-bind="wordImageTest.description"></p>
+                        <button ng-click="Run()">Initiate</button>
                         <button class="btn" ng-click="wordImageTest.showPart=2">Nästa</button>
                     </section>
-                    <section ng-show="wordImageTest.showPart===2">
+                    <section ng-show="wordImageTest.showPart===2">       
+                        <img src="{{IPpath + currentImage.Image}}" />
+                        <input type="text" ng-model="reply[currentImage.index]">
+                        <button class="btn" ng-click="setNextImage()">Svara</button>
                         <button class="btn" ng-click="wordImageTest.showPart=3">Nästa</button>
                     </section>
                     <section ng-show="wordImageTest.showPart===3" class="results">
-                    </section>
-                </span>
-                <footer>
-                </footer>
+                        <section ng-repeat="image in Images">
+                            <img src="{{IPpath + image.Image}}" />
+                            <span ng-hide="response.data[image.imgId]" class="wrong" ng-bind="image.reply"></span>
+                <span ng-show="response.data[image.imgId]" class="right" ng-bind="image.reply"></span>
+            </section>
+            </section>
+            </span>
+            <footer>
+            </footer>
             </section>
             <section ng-show="showGame===2">
                 <header>
