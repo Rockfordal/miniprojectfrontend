@@ -10,7 +10,85 @@
 
 <body>
     <div ng-controller="testcontroller">
-        <h1> {{title}}</h1>
+        <header>
+            <nav>
+                <button ng-click="showGame=1" class="btn" ng-bind="wordImageTest.title"></button>
+                <button ng-click="showGame=2" class="btn" ng-bind="separatorTest.title"></button>
+                <button ng-click="showGame=3" class="btn" ng-bind="colorTest.title"></button>
+                <button ng-click="showGame=4" class="btn" ng-bind="textTest.title"></button>
+            </nav>
+            <span>
+            </span>
+        </header>
+        <main>
+            <section ng-show="showGame===1">
+                <header>
+                    <h1 ng-bind="wordImageTest.title"> </h1>
+                </header>
+                <span>
+                    <section ng-show="wordImageTest.showPart===1" class="description">
+                        <p ng-bind="wordImageTest.description"></p>
+                        <button class="btn" ng-click="wordImageTest.showPart=2">Nästa</button>
+                    </section>
+                    <section ng-show="wordImageTest.showPart===2">
+                        <button class="btn" ng-click="wordImageTest.showPart=3">Nästa</button>
+                    </section>
+                    <section ng-show="wordImageTest.showPart===3" class="results">
+                    </section>
+                </span>
+                <footer>
+                </footer>
+            </section>
+            <section ng-show="showGame===2">
+                <header>
+                    <h1 ng-bind="separatorTest.title"> </h1>
+                </header>
+                <span>
+                    <section class="description">
+                        <p ng-bind="separatorTest.description"></p>
+                    </section>
+                    <section>
+                    </section>
+                    <section class="results">
+                    </section>
+                </span>
+                <footer>
+                </footer>
+            </section>
+            <section ng-show="showGame===3">
+                <header>
+                    <h1 ng-bind="colorTest.title"> </h1>
+                </header>
+                <span>
+                    <section class="description">
+                        <p ng-bind="colorTest.description"></p>
+                    </section>
+                    <section>
+                    </section>
+                    <section class="results">
+                    </section>
+                </span>
+                <footer>
+                </footer>
+            </section>
+            <section ng-show="showGame===4">
+                <header>
+                    <h1 ng-bind="textTest.title"> </h1>
+                </header>
+                <span>
+                    <section class="description">
+                        <p ng-bind="textTest.description"></p>
+                    </section>
+                    <section>
+                    </section>
+                    <section class="results">
+                    </section>
+                </span>
+                <footer>
+                </footer>
+            </section>
+        </main>
+
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
     <script src="/assets/app.js"></script>
