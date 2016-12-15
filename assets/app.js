@@ -8,7 +8,7 @@ angular.module("app", [])
             description: "Skriv vad bilden föreställer",
             showPart: 1,
             replies: [{Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}],
-            response: [false, false, false, false, false]
+            response: [false, true, false, false, false]
 
 
         }
@@ -22,7 +22,7 @@ angular.module("app", [])
             index: 0,
         }
         $scope.setNextImage = function () {
-            if ($scope.currentImage.index < 5) {
+            if ($scope.currentImage.index < 4) {
                 $scope.currentImage.index++;
                 $scope.currentImage.Image = $scope.Images[$scope.currentImage.index].Image;
             }
@@ -55,16 +55,7 @@ angular.module("app", [])
             showPart: 1
         }
         $scope.showGame = 0;
-        var getStrings = function () {
-            $http.get($scope.IPpath + $scope.APIpath)
-                .then(function (response) {
-                    console.log(response.data);
-                }
-                , function (response) {
-                    console.log("ErroR");
-                    console.log(response)
-                });
-        };
+        
         var getWordImageTest = function () {
             console.log("Getting Word Image test");
             $http.get($scope.IPpath + $scope.wordImageTest.path)

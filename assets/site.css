@@ -2,8 +2,10 @@ body {
     background-color: white;
 }
 .right{
-    background-color: limegreen
+    background-color: limegreen;
+    height: 10vw;
 }
 .wrong {
     background-color: yellow;
+    height: 10vw;
 }

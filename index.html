@@ -34,17 +34,21 @@
                         
                         <button class="btn" ng-click="wordImageTest.showPart=2">Starta!</button>
                     </section>
-                    <section ng-show="wordImageTest.showPart===2">       
-                        <img class="img-responsive" src="{{IPpath + currentImage.Image}}" />
-                        <input type="text" ng-model="wordImageTest.replies[currentImage.index].Word">
+                    <section ng-show="wordImageTest.showPart===2">
+                             <!--Sätt storlek på bilderna, de blir tokstora -->
+                            <img class="img-responsive" src="{{IPpath + currentImage.Image}}" />
+                        
+                        
+                            <input type="text" ng-model="wordImageTest.replies[currentImage.index].Word">
+                        
                         <button class="btn" ng-click="setNextImage()">Svara</button>
                         
                     </section>
                     <section ng-show="wordImageTest.showPart===3" class="results">
                         <section ng-repeat="image in Images">
                             <img width="30px" src="{{IPpath + image.Image}}" />
-                            <span ng-hide="response.data[image.imgId]" class="wrong" ng-bind="wordImageTest.replies[$index].Word"></span>
-                <span ng-show="response.data[image.imgId]" class="right" ng-bind="wordImageTest.replies[$index].Word"></span>
+                            <span ng-hide="wordImageTest.response[$index]" class="wrong xs-col-10" ng-bind="wordImageTest.replies[$index].Word"></span>
+                <span ng-show="wordImageTest.response[$index]" class="right xs-col-10" ng-bind="wordImageTest.replies[$index].Word">Rätt</span>
             </section>
             </section>
             </span>
