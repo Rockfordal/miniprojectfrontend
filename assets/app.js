@@ -29,7 +29,7 @@ angular.module("app", [])
             else {
                 console.log("Posting replies");
                 console.log($scope.wordImageTest.replies);
-                $http.post($scope.IPpath + $scope.wordImageTest.path, [{Id:0, Word:"Ord"}])
+                $http.post($scope.IPpath + $scope.wordImageTest.path, $scope.wordImageTest.replies)
                 .then(function(response){
                     console.log(response.data);
                     $scope.wordImageTest.response = response.data;
