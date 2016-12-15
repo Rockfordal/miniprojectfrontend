@@ -1,62 +1,87 @@
 angular.module("app", [])
     .controller("testcontroller", function ($http, $scope) {
-        $scope.IPpath = "http://10.23.192.46:60000";
+        $scope.IPpath = "http://10.23.192.56:60000";
         $scope.APIpath = "/api/test";
         $scope.wordImageTest = {
+            path: "/api/wordimagetest",
             title: "Bild - Ord",
             description: "Skriv vad bilden föreställer",
-            showPart:1,
-            showSubPart: 1,
-            
-            
+            showPart: 1,
+            replies: [{Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}],
+            response: [false, false, false, false, false]
+
+
+        }
+        $scope.runWordImageTest = function () {
+            $scope.showGame = 1;
+            getWordImageTest();
+
         }
         $scope.currentImage = {
             Image: "",
             index: 0,
         }
-        $scope.setNextImage = function(){
-            $scope.currentImage.index++;
-            $scope.currentImage.Image = $scope.Images[$scope.currentImage.index].Image;
+        $scope.setNextImage = function () {
+            if ($scope.currentImage.index < 5) {
+                $scope.currentImage.index++;
+                $scope.currentImage.Image = $scope.Images[$scope.currentImage.index].Image;
+            }
+            else {
+                console.log("Posting replies");
+                $http.post($scope.IPpath + $scope.APIpath, $scope.wordImageTest.reply)
+                .then(function(response){
+                    console.log(response.data);
+                    $scope.wordImageTest.response = response.data;
+                }, function(respone){
+                    console.log(response.data);
+                });
+                $scope.wordImageTest.showPart = 3;
+                $scope.currentImage.index = 0;
+            }
         }
         $scope.separatorTest = {
             title: "Skiljetecken",
             description: "Skriv av texten med rätt skiljetecken",
-            showPart:1
+            showPart: 1
         }
         $scope.colorTest = {
             title: "Färger",
             description: "Klicka på den färg som står",
-            showPart:1
+            showPart: 1
         }
         $scope.textTest = {
             title: "Bilda meningar",
             description: "Skriv en mening med orden som visas",
-            showPart:1
+            showPart: 1
         }
-        $scope.showGame = 1;
+        $scope.showGame = 0;
         var getStrings = function () {
             $http.get($scope.IPpath + $scope.APIpath)
                 .then(function (response) {
                     console.log(response.data);
                 }
-                ,function(response){
+                , function (response) {
                     console.log("ErroR");
-                    console.log(response)});
-        }();
+                    console.log(response)
+                });
+        };
         var getWordImageTest = function () {
-            $http.get($scope.IPpath + "/api/wordimagetest")
-            .then(function (response){
-                $scope.Images=response.data;
-                $scope.currentImage.Image = $scope.Images[0].Image;
-                console.log(response.data);
-            },
-                function(response){
-                console.log(response);
-            })
+            console.log("Getting Word Image test");
+            $http.get($scope.IPpath + $scope.wordImageTest.path)
+                .then(function (response) {
+                    $scope.Images = response.data;
+                    $scope.currentImage.Image = $scope.Images[0].Image;
+                    for(var i = 0; i <= 4; i+=1)
+                    {
+                        $scope.wordImageTest.replies[i].imgId = $scope.Images[i].Id;
+                    }
+                    console.log(response.data);
+                },
+                function (response) {
+                    console.log(response);
+                });
         }
-        $scope.Run = function() {
-            getWordImageTest();
-        }
+
         $scope.title = "HEJ";
         $scope.reply = {
             data: ["", "", "", "", ""]
@@ -64,5 +89,5 @@ angular.module("app", [])
         $scope.response = {
             data: [true, false, true, true, true]
         };
-      
+
     })

@@ -9,39 +9,42 @@
 </head>
 
 <body>
-    <div ng-controller="testcontroller">
+    <div ng-controller="testcontroller" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
         <header>
+            <h1>Miniprojekt</h1>
             <nav>
-                <button ng-click="showGame=1" class="btn" ng-bind="wordImageTest.title"></button>
+                <button ng-click="runWordImageTest()" class="btn" ng-bind="wordImageTest.title"></button>
                 <button ng-click="showGame=2" class="btn" ng-bind="separatorTest.title"></button>
                 <button ng-click="showGame=3" class="btn" ng-bind="colorTest.title"></button>
                 <button ng-click="showGame=4" class="btn" ng-bind="textTest.title"></button>
             </nav>
             <span>
+                <input type="text" ng-model="IPpath" /><button class="btn" ng-click="IPpath='http://localhost:60000/'">Local</button>
             </span>
         </header>
         <main>
             <section ng-show="showGame===1">
                 <header>
-                    <h1 ng-bind="wordImageTest.title"> </h1>
+                    <h2 class="text-center" ng-bind="wordImageTest.title"> </h2>
+                    <input type="text" ng-model="wordImageTest.path" />
                 </header>
                 <span>
                     <section ng-show="wordImageTest.showPart===1" class="description">
                         <p ng-bind="wordImageTest.description"></p>
-                        <button ng-click="Run()">Initiate</button>
-                        <button class="btn" ng-click="wordImageTest.showPart=2">Nästa</button>
+                        
+                        <button class="btn" ng-click="wordImageTest.showPart=2">Starta!</button>
                     </section>
                     <section ng-show="wordImageTest.showPart===2">       
-                        <img src="{{IPpath + currentImage.Image}}" />
-                        <input type="text" ng-model="reply[currentImage.index]">
+                        <img height="100px" class="img-responsive" src="{{IPpath + currentImage.Image}}" />
+                        <input type="text" ng-model="wordImageTest.replies[currentImage.index].Word">
                         <button class="btn" ng-click="setNextImage()">Svara</button>
-                        <button class="btn" ng-click="wordImageTest.showPart=3">Nästa</button>
+                        
                     </section>
                     <section ng-show="wordImageTest.showPart===3" class="results">
                         <section ng-repeat="image in Images">
-                            <img src="{{IPpath + image.Image}}" />
-                            <span ng-hide="response.data[image.imgId]" class="wrong" ng-bind="image.reply"></span>
-                <span ng-show="response.data[image.imgId]" class="right" ng-bind="image.reply"></span>
+                            <img width="30px" src="{{IPpath + image.Image}}" />
+                            <span ng-hide="response.data[image.imgId]" class="wrong" ng-bind="wordImageTest.replies[$index].Word"></span>
+                <span ng-show="response.data[image.imgId]" class="right" ng-bind="wordImageTest.replies[$index].Word"></span>
             </section>
             </section>
             </span>
