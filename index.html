@@ -40,7 +40,7 @@
                                 <div class="currentImg" style='background-image:url("{{IPpath + currentImage.Image}}")' ></div>
                              </div>
                         
-                            <input class="xs-col-9" type="text" ng-model="wordImageTest.replies[currentImage.index].Word" />
+                            <input class="xs-col-9" type="text" auto-focus ng-model="wordImageTest.replies[currentImage.index].Word" />
                         <button class="btn" ng-click="setNextImage()">Svara</button>
                         
                     </section>
@@ -83,7 +83,7 @@
                     <section ng-show="colorTest.showPart===2" >
                         <div ng-bind="currentColor.text"></div>
                         <div class="swatch-container" ng-repeat="swatch in colorTest.alternatives">
-                            <div class="swatch-wrapper col-xs-3 col-md-2">
+                            <div id="swatch{{index}}"class="swatch-wrapper col-xs-3 col-md-2">
                                 <div class="swatch" ng-click="selectSwatch($index)" style="background-color:{{swatch.hex}}">
                                 </div>
                             </div>

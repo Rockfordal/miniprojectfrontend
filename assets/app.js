@@ -50,7 +50,7 @@ angular.module("app", [])
             description: "Klicka på den färg som står",
             showPart: 1,
             replies: [{Id:0, hex:"#225566"}],
-            alternatives: [{hex:"#00ffff"}, {hex:"#ff0000"}, {hex:"#00ff00"}],
+            alternatives: [{hex:"#00ffff"}, {hex:"#ff0000"}, {hex:"#00ff00"}, {hex:"#ff0000"}, {hex:"#00ff00"}, {hex:"#ff0000"}, {hex:"#00ff00"}],
             response: [{Id:0, hex:""}, {Id:0, hex:""}, {Id:0, hex:""}, {Id:0, hex:""}, {Id:0, hex:""}]
         }
         $scope.currentColor = {
@@ -92,6 +92,6 @@ angular.module("app", [])
         $scope.selectSwatch = function (index){
             $scope.colorTest.replies[$scope.currentColor.index].Id = $scope.colorTest.alternatives[index].Id;
             $scope.colorTest.replies[$scope.currentColor.index].hex = $scope.colorTest.alternatives[index].hex;
-            console.log("Du tryckte på " +$scope.colorTest.replies[$scope.currentColot.index]);
+            console.log("Du tryckte på " +$scope.colorTest.replies[$scope.currentColor.index].hex);
         }
     })
