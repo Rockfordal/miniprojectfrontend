@@ -9,3 +9,41 @@ body {
     background-color: yellow;
     height: 10vw;
 }
+.swatch-wrapper {
+    position:relative;
+    padding-left:0 !important;
+    padding-right:0 !important;
+}
+.swatch-wrapper:after {
+    content:"";
+    display:block;
+    padding-top: 100%;
+}
+.swatch {
+    position:absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+.imgWrapper {
+    position:relative;
+    padding-left:0;
+    padding-right:0;
+}
+.imgWrapper:after {
+    content:"";
+    display: block;
+    padding-top: 100%;
+}
+.currentImg {
+    position: absolute;
+    background-color: red;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}

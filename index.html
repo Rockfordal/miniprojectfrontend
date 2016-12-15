@@ -19,7 +19,7 @@
                 <button ng-click="showGame=4" class="btn" ng-bind="textTest.title"></button>
             </nav>
             <span>
-                <input type="text" ng-model="IPpath" /><button class="btn" ng-click="IPpath='http://localhost:60000/'">Local</button>
+                <input type="text" ng-model="IPpath" /><button class="btn" ng-click="IPpath='http://localhost:60000'">Local</button>
             </span>
         </header>
         <main>
@@ -36,11 +36,11 @@
                     </section>
                     <section ng-show="wordImageTest.showPart===2">
                              <!--Sätt storlek på bilderna, de blir tokstora -->
-                            <img class="img-responsive" src="{{IPpath + currentImage.Image}}" />
+                             <div class="imgWrapper xs-col-3">
+                                <div class="currentImg" style='background-image:url("{{IPpath + currentImage.Image}}")' ></div>
+                             </div>
                         
-                        
-                            <input type="text" ng-model="wordImageTest.replies[currentImage.index].Word">
-                        
+                            <input class="xs-col-9" type="text" ng-model="wordImageTest.replies[currentImage.index].Word" />
                         <button class="btn" ng-click="setNextImage()">Svara</button>
                         
                     </section>
@@ -76,12 +76,25 @@
                     <h1 ng-bind="colorTest.title"> </h1>
                 </header>
                 <span>
-                    <section class="description">
+                    <section ng-show="colorTest.showPart===1" class="description">
                         <p ng-bind="colorTest.description"></p>
+                        <button class="btn" ng-click="colorTest.showPart=2">Starta!</button>
                     </section>
-                    <section>
+                    <section ng-show="colorTest.showPart===2" >
+                        <div ng-bind="currentColor.text"></div>
+                        <div class="swatch-container" ng-repeat="swatch in colorTest.alternatives">
+                            <div class="swatch-wrapper col-xs-3 col-md-2">
+                                <div class="swatch" ng-click="selectSwatch($index)" style="background-color:{{swatch.hex}}">
+                                </div>
+                            </div>
+                        </div>    
                     </section>
-                    <section class="results">
+                    <section ng-show="colorTest.showPart===3"  class="results">
+                        <section ng-repeat="color in Colors">
+                            <div class="swatch" id="$index"></div>
+                            <div ng-hide="colorTest.response[$index]" class="wrong xs-col-10"></div>
+                            <div ng-show="colorTest.response[$index]" class="right xs-col-10">Rätt</div>
+                        </section>
                     </section>
                 </span>
                 <footer>

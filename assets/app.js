@@ -1,7 +1,7 @@
 angular.module("app", [])
     .controller("testcontroller", function ($http, $scope) {
         $scope.IPpath = "http://10.23.192.56:60000";
-        $scope.APIpath = "/api/test";
+       
         $scope.wordImageTest = {
             path: "/api/wordimagetest",
             title: "Bild - Ord",
@@ -28,7 +28,8 @@ angular.module("app", [])
             }
             else {
                 console.log("Posting replies");
-                $http.post($scope.IPpath + $scope.APIpath, $scope.wordImageTest.reply)
+                console.log($scope.wordImageTest.replies);
+                $http.post($scope.IPpath + $scope.wordImageTest.path, [{Id:0, Word:"Ord"}])
                 .then(function(response){
                     console.log(response.data);
                     $scope.wordImageTest.response = response.data;
@@ -47,7 +48,15 @@ angular.module("app", [])
         $scope.colorTest = {
             title: "Färger",
             description: "Klicka på den färg som står",
-            showPart: 1
+            showPart: 1,
+            replies: [{Id:0, hex:"#225566"}],
+            alternatives: [{hex:"#00ffff"}, {hex:"#ff0000"}, {hex:"#00ff00"}],
+            response: [{Id:0, hex:""}, {Id:0, hex:""}, {Id:0, hex:""}, {Id:0, hex:""}, {Id:0, hex:""}]
+        }
+        $scope.currentColor = {
+            index: 0,
+            text: "BRUN"
+
         }
         $scope.textTest = {
             title: "Bilda meningar",
@@ -64,7 +73,7 @@ angular.module("app", [])
                     $scope.currentImage.Image = $scope.Images[0].Image;
                     for(var i = 0; i <= 4; i+=1)
                     {
-                        $scope.wordImageTest.replies[i].imgId = $scope.Images[i].Id;
+                        $scope.wordImageTest.replies[i].Id = $scope.Images[i].Id;
                     }
                     console.log(response.data);
                 },
@@ -80,5 +89,9 @@ angular.module("app", [])
         $scope.response = {
             data: [true, false, true, true, true]
         };
-
+        $scope.selectSwatch = function (index){
+            $scope.colorTest.replies[$scope.currentColor.index].Id = $scope.colorTest.alternatives[index].Id;
+            $scope.colorTest.replies[$scope.currentColor.index].hex = $scope.colorTest.alternatives[index].hex;
+            console.log("Du tryckte på " +$scope.colorTest.replies[$scope.currentColot.index]);
+        }
     })
