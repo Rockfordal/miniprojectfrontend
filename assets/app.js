@@ -1,13 +1,13 @@
 angular.module("app", [])
     .controller("testcontroller", function ($http, $scope) {
-        $scope.IPpath = "http://10.23.192.56:60000";
-       
+        $scope.IPpath = "http://10.23.192.71:60000";
+
         $scope.wordImageTest = {
             path: "/api/wordimagetest",
             title: "Bild - Ord",
             description: "Skriv vad bilden föreställer",
             showPart: 1,
-            replies: [{Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}],
+            replies: [{ Id: 0, Word: "" }, { Id: 0, Word: "" }, { Id: 0, Word: "" }, { Id: 0, Word: "" }, { Id: 0, Word: "" }],
             response: [false, true, false, false, false]
 
 
@@ -30,12 +30,12 @@ angular.module("app", [])
                 console.log("Posting replies");
                 console.log($scope.wordImageTest.replies);
                 $http.post($scope.IPpath + $scope.wordImageTest.path, $scope.wordImageTest.replies)
-                .then(function(response){
-                    console.log(response.data);
-                    $scope.wordImageTest.response = response.data;
-                }, function(respone){
-                    console.log(response.data);
-                });
+                    .then(function (response) {
+                        console.log(response.data);
+                        $scope.wordImageTest.response = response.data;
+                    }, function (response) {
+                        console.log(response);
+                    });
                 $scope.wordImageTest.showPart = 3;
                 $scope.currentImage.index = 0;
             }
@@ -48,31 +48,31 @@ angular.module("app", [])
         $scope.colorTest = {
             title: "Färger",
             description: "Klicka på den färg som står",
+            path: "/api/colortest",
             showPart: 1,
-            replies: [{Id:0, hex:"#225566"}],
-            alternatives: [{hex:"#00ffff"}, {hex:"#ff0000"}, {hex:"#00ff00"}, {hex:"#ff0000"}, {hex:"#00ff00"}, {hex:"#ff0000"}, {hex:"#00ff00"}],
-            response: [{Id:0, hex:""}, {Id:0, hex:""}, {Id:0, hex:""}, {Id:0, hex:""}, {Id:0, hex:""}]
+            replies: [{ Id: 0, hex: "#225566" }, { Id: 0, hex: "#225566" }, { Id: 0, hex: "#225566" }, { Id: 0, hex: "#225566" }, { Id: 0, hex: "#225566" }],
+            alternatives: [{ Id: 3, hex: "#00ffff" }, { Id: 86, hex: "#ff0000" }, { Id: 36, hex: "#00ff00" }, { Id: 17, hex: "#ff0000" }, { Id: 16, hex: "#00ff00" }, { Id: 23, hex: "#ff0000" }, { Id: 24, hex: "#00ff00" }],
+            response: [true, false, false, true, true]
         }
         $scope.currentColor = {
             index: 0,
-            text: "BRUN"
-
+            text: "BRUN",
         }
+        $scope.Colors = [{ Id: 5, text: "Brun" }, { Id: 2, text: "Grön" }, { Id: 2, text: "Blå" }, { Id: 2, text: "Röd" }, { Id: 2, text: "Saffran" }];
         $scope.textTest = {
             title: "Bilda meningar",
             description: "Skriv en mening med orden som visas",
             showPart: 1
         }
         $scope.showGame = 0;
-        
+
         var getWordImageTest = function () {
             console.log("Getting Word Image test");
             $http.get($scope.IPpath + $scope.wordImageTest.path)
                 .then(function (response) {
                     $scope.Images = response.data;
                     $scope.currentImage.Image = $scope.Images[0].Image;
-                    for(var i = 0; i <= 4; i+=1)
-                    {
+                    for (var i = 0; i <= 4; i += 1) {
                         $scope.wordImageTest.replies[i].Id = $scope.Images[i].Id;
                     }
                     console.log(response.data);
@@ -89,9 +89,30 @@ angular.module("app", [])
         $scope.response = {
             data: [true, false, true, true, true]
         };
-        $scope.selectSwatch = function (index){
+        $scope.selectSwatch = function (index) {
             $scope.colorTest.replies[$scope.currentColor.index].Id = $scope.colorTest.alternatives[index].Id;
             $scope.colorTest.replies[$scope.currentColor.index].hex = $scope.colorTest.alternatives[index].hex;
-            console.log("Du tryckte på " +$scope.colorTest.replies[$scope.currentColor.index].hex);
+            console.log("Du tryckte på " + $scope.colorTest.replies[$scope.currentColor.index].hex);
+            $(".swatch").css("border", "none");
+            $("#swatch" + index).css("border", "5px solid black");
+            console.log($("#swatch" + index).css("border"));
+        }
+        $scope.setNextColor = function () {
+            if ($scope.currentColor.index < 4) {
+                $scope.currentColor.index += 1;
+                $scope.currentColor.text = $scope.Colors[$scope.currentColor.index].text;
+            }
+            else {
+                console.log($scope.colorTest.replies);
+                $http.post($scope.IPpath + $scope.colorTest.path, $scope.colorTest.replies)
+                    .then(function (response) {
+                        console.log(response.data);
+                        $scope.colorTest.response = response.data;
+                        $scope.colorTest.showPart = 3;
+                    }, function (response) {
+                        console.log(response);
+                        $scope.colorTest.showPart = 3;
+                    });
+            }
         }
     })
