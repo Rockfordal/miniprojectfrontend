@@ -1,6 +1,33 @@
-angular.module("app", [])
-    .controller("testcontroller", function ($http, $scope) {
-        $scope.IPpath = "http://10.23.192.56:60000";
+// document.ready(function () {
+"use strict";
+
+var serverurl = "http://10.23.192.71:60000";
+
+angular.module("app", ['ngResource'])
+       .factory("WordImage", function ($resource, $http) {
+           $http.defaults.useXDomain = true;
+           return $resource(
+               serverurl + "/api/wordimagetest/:Id",
+            //    { Id: "@Id" },
+               { 
+                   update: { method: "PUT" },
+                   create: { method: "POST", isArray: true },
+                   save: { method:'POST', headers: [{'Content-Type': 'application/json'}] 
+            } //NOT WORKING EI
+            }
+          );
+    })
+    .config(function ($httpProvider) {
+        // $httpProvider.defaults.headers.common = {};
+        // $httpProvider.defaults.headers.put = {};
+        // $httpProvider.defaults.headers.post = {}; // 415 Unsupported Media Type
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; // 200 OK: []
+        // $httpProvider.defaults.headers.post['Content-Type'] = 'aplication/json'; // OPTIONS 405 Method not allowed
+        // $httpProvider.defaults.headers.post["Content-Type"] = "text/plain";
+        $httpProvider.defaults.useXDomain = true;
+    })
+    .controller("testcontroller", function ($http, $scope, WordImage) {
+        $scope.IPpath = serverurl;
        
         $scope.wordImageTest = {
             path: "/api/wordimagetest",
@@ -9,8 +36,6 @@ angular.module("app", [])
             showPart: 1,
             replies: [{Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}, {Id:0, Word:""}],
             response: [false, true, false, false, false]
-
-
         }
         $scope.runWordImageTest = function () {
             $scope.showGame = 1;
@@ -27,15 +52,46 @@ angular.module("app", [])
                 $scope.currentImage.Image = $scope.Images[$scope.currentImage.index].Image;
             }
             else {
+                var apiurl = $scope.IPpath + $scope.wordImageTest.path, data;
+                // var rawdata = $scope.wordImageTest.replies;
+                // var rawdata = [{"Id":1,"Word":"fågel"},{"Id":2,"Word":"bil"},{"Id":3,"Word":"katt"},{"Id":4,"Word":"hund"},{"Id":5,"Word":"sdfsdf"}];
+                // var rawdata = { "Id":1, "Word": "fågel" };
+                var rawdata = { Id: 1, Word: "hus" };
+                var data = rawdata;
+                // var data = JSON.stringify(rawdata);
+
                 console.log("Posting replies");
-                console.log($scope.wordImageTest.replies);
-                $http.post($scope.IPpath + $scope.wordImageTest.path, $scope.wordImageTest.replies)
+                console.log("url:", apiurl)
+                console.log("rawdata: ", data);
+                console.log("data:", data);
+
+                // var jsonheaders = {
+                //     headers: {
+                //         'Content-Type': 'application/json'
+                //     }
+                // };
+
+                // WordImageService.query();
+
+                // $scope.wordImageTest.response = new WordImage();
+                // $scope.wordImageTest.response.$save();
+
+                // WordImage.save(data);
+
+                // $http.post(apiurl, rawdata, jsonheaders)
+                // .success(function (data) {
+                //     console.log('response data:', data);
+                // });
+
+                $http.post(apiurl, rawdata)
+                // $http.post(apiurl, rawdata, jsonheaders)
                 .then(function(response){
-                    console.log(response.data);
+                    console.log('response data:', response.data);
                     $scope.wordImageTest.response = response.data;
-                }, function(respone){
-                    console.log(response.data);
+                }, function(error){
+                    console.log('error:', error);
                 });
+
                 $scope.wordImageTest.showPart = 3;
                 $scope.currentImage.index = 0;
             }
@@ -95,3 +151,5 @@ angular.module("app", [])
             console.log("Du tryckte på " +$scope.colorTest.replies[$scope.currentColor.index].hex);
         }
     })
+
+// })();

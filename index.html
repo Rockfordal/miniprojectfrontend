@@ -40,7 +40,7 @@
                                 <div class="currentImg" style='background-image:url("{{IPpath + currentImage.Image}}")' ></div>
                              </div>
                         
-                            <input class="xs-col-9" type="text" auto-focus ng-model="wordImageTest.replies[currentImage.index].Word" />
+                            <input class="xs-col-9" type="text" ng-model="wordImageTest.replies[currentImage.index].Word" autofocus />
                         <button class="btn" ng-click="setNextImage()">Svara</button>
                         
                     </section>
@@ -119,7 +119,9 @@
         </main>
 
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>-->
+    <script src="/assets/angular.js"></script>
+    <script src="/assets/angular-resource.js"></script>
     <script src="assets/app.js"></script>
 </body>
 
