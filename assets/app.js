@@ -1,6 +1,6 @@
 angular.module("app", [])
     .controller("testcontroller", function ($http, $scope) {
-        $scope.IPpath = "http://10.23.192.56:60000";
+        $scope.IPpath = "http://10.23.192.71:60000";
 
         $scope.wordImageTest = {
             path: "/api/wordimagetest",
