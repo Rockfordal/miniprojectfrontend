@@ -19,12 +19,16 @@ body {
     display:block;
     padding-top: 100%;
 }
-.swatch {
+.swatch, .small-swatch {
     position:absolute;
     left: 0;
     top: 0;
     bottom: 0;
     right: 0;
+    
+}
+.small-swatch {
+    border: 1px solid black;
 }
 .imgWrapper {
     position:relative;
