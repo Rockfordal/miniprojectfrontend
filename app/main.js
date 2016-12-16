@@ -29,7 +29,7 @@ angular.module("app", [])
 
         $scope.runColorTest = function () {
             $scope.showGame = 3;
-            // getWordImageTest();
+            getColorTest();
         }
 
         $scope.runSeparatorTest = function () {
@@ -107,7 +107,7 @@ angular.module("app", [])
                     for (var i = 0; i <= 4; i += 1) {
                         $scope.wordImageTest.replies[i].Id = $scope.Images[i].Id;
                     }
-                    console.log(response.data);
+                    console.log('got wordimage data: ', response.data);
                 },
                 function (response) {
                     console.log(response);
@@ -115,16 +115,15 @@ angular.module("app", [])
         }
 
         var getColorTest = function () {
-            console.log("Getting Color test");
             $http.get($scope.IPpath + $scope.colorTest.path)
                 .then(function (response) {
-                    $scope.colorTest.alternatives = reponse.data.alternatives;
+                    console.log('got color data: ', response.data);
+                    $scope.colorTest.alternatives = reponse.data.Colors;
                     $scope.currentColor.index = response.data.Id;
                     $scope.currentColor.text = response.data.Name;
-                    console.log('get colortest: ', response.data);
                 },
                 function (response) {
-                    console.log(response);
+                    console.log('error getting colortest: ', response);
                 });
         }
         $scope.title = "HEJ";
