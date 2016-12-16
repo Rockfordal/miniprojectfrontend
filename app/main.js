@@ -27,6 +27,20 @@ angular.module("app", [])
             getWordImageTest();
         }
 
+        $scope.runColorTest = function () {
+            $scope.showGame = 3;
+            // getWordImageTest();
+        }
+
+        $scope.runSeparatorTest = function () {
+            $scope.showGame = 2;
+            // getSeparatorTest();
+        }
+        $scope.runSentenceTest = function () {
+            $scope.showGame = 4;
+            // getSentenceTest();
+        }
+
         $scope.currentImage = {
             Image: "",
             index: 0,
@@ -76,7 +90,7 @@ angular.module("app", [])
         }
 
         $scope.Colors = [{ Id: 5, text: "Brun" }, { Id: 2, text: "Grön" }, { Id: 2, text: "Blå" }, { Id: 2, text: "Röd" }, { Id: 2, text: "Saffran" }];
-        $scope.textTest = {
+        $scope.sentenceTest = {
             title: "Bilda meningar",
             description: "Skriv en mening med orden som visas",
             showPart: 1

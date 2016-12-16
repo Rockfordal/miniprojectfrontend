@@ -14,9 +14,9 @@
             <h1>Miniprojekt</h1>
             <nav>
                 <button ng-click="runWordImageTest()" class="btn" ng-bind="wordImageTest.title"></button>
-                <button ng-click="showGame=2" class="btn" ng-bind="separatorTest.title"></button>
-                <button ng-click="showGame=3" class="btn" ng-bind="colorTest.title"></button>
-                <button ng-click="showGame=4" class="btn" ng-bind="textTest.title"></button>
+                <button ng-click="runColorTest()" class="btn" ng-bind="colorTest.title"></button>
+                <button ng-click="runSeparatorTest()" class="btn" ng-bind="separatorTest.title"></button>
+                <button ng-click="runSentenceTest()" class="btn" ng-bind="sentenceTest.title"></button>
             </nav>
             <span>
                 <input type="text" ng-model="IPpath" /><button class="btn" ng-click="IPpath='http://localhost:60000'">Local</button>
@@ -117,11 +117,11 @@
     </section>
     <section ng-show="showGame===4">
         <header>
-            <h1 ng-bind="textTest.title"> </h1>
+            <h1 ng-bind="sentenceTest.title"> </h1>
         </header>
         <span>
                     <section class="description">
-                        <p ng-bind="textTest.description"></p>
+                        <p ng-bind="sentenceTest.description"></p>
                     </section>
                     <section>
                     </section>
