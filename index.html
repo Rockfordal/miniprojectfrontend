@@ -2,7 +2,6 @@
 <html ng-app="app">
 
 <head>
-    <meta charset="UTF-8">
     <link rel="stylesheet" href="assets/site.css" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -84,43 +83,28 @@
                     <section ng-show="colorTest.showPart===2" >
                         <div ng-bind="currentColor.text"></div>
                         <div class="swatch-container" ng-repeat="swatch in colorTest.alternatives">
-                            <div class="swatch-wrapper col-xs-3 col-md-2">
-                                <div id="swatch{{$index}}" class="swatch" ng-click="selectSwatch($index)" style="background-color:{{swatch.hex}}">
+                            <div id="swatch{{index}}"class="swatch-wrapper col-xs-3 col-md-2">
+                                <div class="swatch" ng-click="selectSwatch($index)" style="background-color:{{swatch.hex}}">
                                 </div>
                             </div>
-                        </div> 
-                        <button class="btn" ng-click="setNextColor()">Nästa</button>   
+                        </div>    
                     </section>
                     <section ng-show="colorTest.showPart===3"  class="results">
                         <section ng-repeat="color in Colors">
-                            
-                            <div ng-hide="colorTest.response[$index]" class="wrong xs-col-10">
-                                    <span ng-bind="color.text"></span>
-                                <div class="swatch-wrapper col-xs-1">
-                                    <div class="small-swatch" style="background-color:{{colorTest.replies[$index].hex}}">
-                                    </div>
-                                </div>
-                                <span>Fel</span>
-                            </div>
-                            <div ng-show="colorTest.response[$index]" class="right xs-col-10">
-                                <span ng-bind="color.text"></span>
-                                <div class="swatch-wrapper col-xs-1">
-                                    <div class="small-swatch" style="background-color:{{colorTest.replies[$index].hex}}">
-                                    </div>
-                                </div>
-                                    <span>Rätt</span>
-                                </div>
-                            </section>
+                            <div class="swatch" id="$index"></div>
+                            <div ng-hide="(colorTest.response[$index].Result == '1')" class="wrong xs-col-10"></div>
+                            <div ng-show="(colorTest.response[$index].Result == '1')" class="right xs-col-10">Rätt</div>
                         </section>
-    </span>
-    <footer>
-    </footer>
-    </section>
-    <section ng-show="showGame===4">
-        <header>
-            <h1 ng-bind="textTest.title"> </h1>
-        </header>
-        <span>
+                    </section>
+                </span>
+                <footer>
+                </footer>
+            </section>
+            <section ng-show="showGame===4">
+                <header>
+                    <h1 ng-bind="textTest.title"> </h1>
+                </header>
+                <span>
                     <section class="description">
                         <p ng-bind="textTest.description"></p>
                     </section>
@@ -129,17 +113,16 @@
                     <section class="results">
                     </section>
                 </span>
-        <footer>
-        </footer>
-    </section>
-    </main>
+                <footer>
+                </footer>
+            </section>
+        </main>
 
     </div>
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>-->
     <script src="/assets/angular.js"></script>
-    <script src="/assets/angular-resource.js"></script>
-    <script src="assets/app.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!--<script src="/assets/angular-resource.js"></script>-->
+    <script src="/app/main.js"></script>
+    <script src="/app/directives.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,19 @@
+// document.ready(function () {
+"use strict";
+
+function ResultToArray(row) {
+    var arr = [];
+    angular.forEach(row, function(value, key) {
+        arr.push(value.Result == '1')
+    });
+    return arr;
+}
+
+var serverurl = "http://10.23.192.71:60000";
+
 angular.module("app", [])
     .controller("testcontroller", function ($http, $scope) {
-        $scope.IPpath = "http://10.23.192.71:60000";
+        $scope.IPpath = serverurl;
 
         $scope.wordImageTest = {
             path: "/api/wordimagetest",
@@ -9,13 +22,10 @@ angular.module("app", [])
             showPart: 1,
             replies: [{ Id: 0, Word: "" }, { Id: 0, Word: "" }, { Id: 0, Word: "" }, { Id: 0, Word: "" }, { Id: 0, Word: "" }],
             response: [false, true, false, false, false]
-
-
         }
         $scope.runWordImageTest = function () {
             $scope.showGame = 1;
             getWordImageTest();
-
         }
         $scope.currentImage = {
             Image: "",
@@ -27,15 +37,17 @@ angular.module("app", [])
                 $scope.currentImage.Image = $scope.Images[$scope.currentImage.index].Image;
             }
             else {
-                console.log("Posting replies");
-                console.log($scope.wordImageTest.replies);
-                $http.post($scope.IPpath + $scope.wordImageTest.path, $scope.wordImageTest.replies)
-                    .then(function (response) {
-                        console.log(response.data);
-                        $scope.wordImageTest.response = response.data;
-                    }, function (response) {
-                        console.log(response);
-                    });
+                var apiurl = $scope.IPpath + $scope.wordImageTest.path, data;
+                var data = $scope.wordImageTest.replies;
+                // var rawdata = [{Id:1,"Word":"fågel"},{Id:2, Word: "bil"},{Id:3,"Word":"katt"},{Id:4,"Word":"hund"},{Id:5,"Word":"sdfsdf"}];
+
+                $http.post(apiurl, data)
+                .then(function(response){
+                    $scope.wordImageTest.response = ResultToArray(response.data);
+                }, function(error){
+                    console.log('error:', error);
+                })
+
                 $scope.wordImageTest.showPart = 3;
                 $scope.currentImage.index = 0;
             }
