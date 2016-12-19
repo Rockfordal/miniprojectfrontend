@@ -6,6 +6,11 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
+    <script src="/assets/jquery-3.1.1.min.js"></script>
+    <script src="/assets/angular.js"></script>
+    <!--<script src="/assets/angular-resource.js"></script>-->
+    <script src="/app/main.js"></script>
+    <script src="/app/directives.js"></script>
 </head>
 
 <body>
@@ -14,9 +19,9 @@
             <h1>Miniprojekt</h1>
             <nav>
                 <button ng-click="runWordImageTest()" class="btn" ng-bind="wordImageTest.title"></button>
-                <button ng-click="showGame=2" class="btn" ng-bind="separatorTest.title"></button>
-                <button ng-click="showGame=3" class="btn" ng-bind="colorTest.title"></button>
-                <button ng-click="showGame=4" class="btn" ng-bind="textTest.title"></button>
+                <button ng-click="runColorTest()" class="btn" ng-bind="colorTest.title"></button>
+                <button ng-click="runSeparatorTest()" class="btn" ng-bind="separatorTest.title"></button>
+                <button ng-click="runSentenceTest()" class="btn" ng-bind="sentenceTest.title"></button>
             </nav>
             <span>
                 <input type="text" ng-model="IPpath" /><button class="btn" ng-click="IPpath='http://localhost:60000'">Local</button>
@@ -40,13 +45,13 @@
                                 <div class="currentImg" style='background-image:url("{{IPpath + currentImage.Image}}")' ></div>
                              </div>
                         
-                            <input class="xs-col-9" type="text" auto-focus ng-model="wordImageTest.replies[currentImage.index].Word" />
+                            <input class="xs-col-9" type="text" ng-enter="setNextImage()" ng-model="wordImageTest.replies[currentImage.index].Word" autofocus />
                         <button class="btn" ng-click="setNextImage()">Svara</button>
                         
                     </section>
-                    <section ng-show="wordImageTest.showPart===3" class="results">
+                    <section ng-show="wordImageTest.showPart === 3" class="results">
                         <section ng-repeat="image in Images">
-                            <img width="30px" src="{{IPpath + image.Image}}" />
+                            <img width="30px" ng-src="{{IPpath + image.Image}}" />
                             <span ng-hide="wordImageTest.response[$index]" class="wrong xs-col-10" ng-bind="wordImageTest.replies[$index].Word"></span>
                 <span ng-show="wordImageTest.response[$index]" class="right xs-col-10" ng-bind="wordImageTest.replies[$index].Word">Rätt</span>
             </section>
@@ -84,7 +89,7 @@
                         <div ng-bind="currentColor.text"></div>
                         <div class="swatch-container" ng-repeat="swatch in colorTest.alternatives">
                             <div class="swatch-wrapper col-xs-3 col-md-2">
-                                <div id="swatch{{$index}}" class="swatch" ng-click="selectSwatch($index)" style="background-color:{{swatch.hex}}">
+                                <div id="swatch{{$index}}" class="swatch" ng-click="selectSwatch($index)" style="background-color:{{swatch.Hex}}">
                                 </div>
                             </div>
                         </div> 
@@ -117,26 +122,23 @@
     </section>
     <section ng-show="showGame===4">
         <header>
-            <h1 ng-bind="textTest.title"> </h1>
+            <h1 ng-bind="sentenceTest.title"> </h1>
         </header>
         <span>
                     <section class="description">
-                        <p ng-bind="textTest.description"></p>
+                        <p ng-bind="sentenceTest.description"></p>
                     </section>
                     <section>
                     </section>
                     <section class="results">
                     </section>
                 </span>
-        <footer>
-        </footer>
-    </section>
-    </main>
+                <footer>
+                </footer>
+            </section>
+        </main>
 
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
-    <script src="assets/app.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </body>
 
 </html>
