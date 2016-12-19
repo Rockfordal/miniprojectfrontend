@@ -3,11 +3,11 @@ body {
 }
 .right{
     background-color: limegreen;
-    height: 10vw;
+    height: 8vw;
 }
 .wrong {
     background-color: yellow;
-    height: 10vw;
+    height: 8vw;
 }
 .swatch-wrapper {
     position:relative;
@@ -42,7 +42,7 @@ body {
 }
 .currentImg {
     position: absolute;
-    background-color: red;
+    
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
